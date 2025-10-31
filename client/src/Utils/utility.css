@@ -1,3 +1,11 @@
 nav a.active {
-    color: purple;
+    color: blueviolet;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+}
+#hero{
+    background-image: url('../assets/bg-hero-left.png'), url('../assets/bg-hero-right.png');
+    background-repeat: no-repeat;
+    background-position: left center, right center;
+    background-size: contain;
 }
