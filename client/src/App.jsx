@@ -6,11 +6,11 @@ import Footer from './Components/Footer'
 function App() {
 
   return (
-    <>
+    <div className='flex flex-col items-center justify-between min-h-screen'>
       <Navbar />
       <Outlet />
       <Footer />
-    </>
+    </div>
   )
 }
 

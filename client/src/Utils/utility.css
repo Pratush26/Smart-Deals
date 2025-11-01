@@ -1,3 +1,5 @@
+@reference "tailwindcss";
+
 nav a.active {
     color: blueviolet;
     text-decoration: underline;
@@ -8,4 +10,33 @@ nav a.active {
     background-repeat: no-repeat;
     background-position: left center, right center;
     background-size: contain;
+}
+
+.btn {
+    @apply px-4 py-2 text-sm font-semibold bg-gradient-to-br cursor-pointer from-violet-900 to-purple-500 hover:from-indigo-800 hover:to-purple-600 text-white rounded-sm;
+}
+.trnsition{
+    @apply transition-all duration-200 transition-discrete;
+}
+input{
+  background-color: whitesmoke;
+  padding: 10px 20px;
+  font-size: .9rem;
+  width: 94%;
+  margin: auto;
+}
+
+label{
+  font-weight: 600;
+  padding-top: 18px;
+  padding-left: 4px;
+  font-size: .9rem;
+  @apply text-gray-900;
+  width: 94%;
+  margin: auto;
+}
+input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0px 1000px whitesmoke inset;
+  -webkit-text-fill-color: black;
+  transition: background-color 5000s ease-in-out 0s;
 }

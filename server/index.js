@@ -1,7 +1,7 @@
 import express from "express";
 import cors from 'cors'
 import dotenv from 'dotenv'
-import { MongoClient, ServerApiVersion } from "mongodb";
+import { MongoClient, ObjectId, ServerApiVersion } from "mongodb";
 
 dotenv.config()
 const app = express()
@@ -26,6 +26,22 @@ async function run() {
     const bidsCollection = db.collection('bids');
     app.get('/products', async (req, res) => {
             const cursor = productsCollection.find({});
+            const result = await cursor.toArray();
+            res.send(result)
+        });
+    app.get('/productById/:id', async (req, res) => {
+            const id = req.params.id;
+            const query = { _id: new ObjectId(id) }
+            const result = await productsCollection.findOne(query);
+            res.send(result);
+        });
+    app.get('/latest-products', async (req, res) => {
+            const cursor = productsCollection.find({}).sort({created_at: 1}).limit(6);
+            const result = await cursor.toArray();
+            res.send(result)
+        });
+    app.get('/bids', async (req, res) => {
+            const cursor = bidsCollection.find({});
             const result = await cursor.toArray();
             res.send(result)
         });

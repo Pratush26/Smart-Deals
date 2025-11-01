@@ -1,4 +1,5 @@
 import { Link } from "react-router";
+import '../Utils/utility.css'
 
 export default function Footer() {
     return (
@@ -10,29 +11,29 @@ export default function Footer() {
                 </div>
                 <div className="text-gray-400 flex flex-col gap-3 text-sm">
                     <h6 className="text-lg font-semibold text-white">Quick Links</h6>
-                    <Link className="hover:text-gray-200 transition-colors duration-200 transition-discrete" to='/'>All Products</Link>
-                    <Link className="hover:text-gray-200 transition-colors duration-200 transition-discrete" to='/'>Dashboard</Link>
-                    <Link className="hover:text-gray-200 transition-colors duration-200 transition-discrete" to='/'>Login</Link>
-                    <Link className="hover:text-gray-200 transition-colors duration-200 transition-discrete" to='/'>Register</Link>
+                    <Link className="hover:text-gray-200 trnsition" to='/'>All Products</Link>
+                    <Link className="hover:text-gray-200 trnsition" to='/'>Dashboard</Link>
+                    <Link className="hover:text-gray-200 trnsition" to='/'>Login</Link>
+                    <Link className="hover:text-gray-200 trnsition" to='/'>Register</Link>
                 </div>
                 <div className="text-gray-400 flex flex-col gap-3 text-sm">
                     <h6 className="text-lg font-semibold text-white">Categories</h6>
-                    <Link className="hover:text-gray-200 transition-colors duration-200 transition-discrete" to='/'>Electronics</Link>
-                    <Link className="hover:text-gray-200 transition-colors duration-200 transition-discrete" to='/'>Fashion</Link>
-                    <Link className="hover:text-gray-200 transition-colors duration-200 transition-discrete" to='/'>Home & Living</Link>
-                    <Link className="hover:text-gray-200 transition-colors duration-200 transition-discrete" to='/'>Groceries</Link>
+                    <Link className="hover:text-gray-200 trnsition" to='/'>Electronics</Link>
+                    <Link className="hover:text-gray-200 trnsition" to='/'>Fashion</Link>
+                    <Link className="hover:text-gray-200 trnsition" to='/'>Home & Living</Link>
+                    <Link className="hover:text-gray-200 trnsition" to='/'>Groceries</Link>
                 </div>
                 <div className="text-gray-400 flex flex-col gap-3 text-sm">
                     <h6 className="text-lg font-semibold text-white">Contact & Support</h6>
-                    <Link className="hover:text-gray-200 transition-colors duration-200 transition-discrete" to='/'>support@Smartdeals.com</Link>
-                    <Link className="hover:text-gray-200 transition-colors duration-200 transition-discrete" to='/'>+880 123 456 789</Link>
-                    <Link className="hover:text-gray-200 transition-colors duration-200 transition-discrete" to='/'>123 Commerce Street, Dhaka, Bangladesh</Link>
+                    <Link className="hover:text-gray-200 trnsition" to='/'>support@Smartdeals.com</Link>
+                    <Link className="hover:text-gray-200 trnsition" to='/'>+880 123 456 789</Link>
+                    <Link className="hover:text-gray-200 trnsition" to='/'>123 Commerce Street, Dhaka, Bangladesh</Link>
                 </div>
                 <div className="text-gray-400 space-x-3 space-y-2 text-sm">
                     <h6 className="text-lg font-semibold text-white">Social Links</h6>
-                    <Link className="hover:text-gray-200 transition-colors duration-200 transition-discrete" to='/'>support@Smartdeals.com</Link>
-                    <Link className="hover:text-gray-200 transition-colors duration-200 transition-discrete" to='/'>+880 123 456 789</Link>
-                    <Link className="hover:text-gray-200 transition-colors duration-200 transition-discrete" to='/'>123 Commerce Street, Dhaka, Bangladesh</Link>
+                    <Link className="hover:text-gray-200 trnsition" to='/'>support@Smartdeals.com</Link>
+                    <Link className="hover:text-gray-200 trnsition" to='/'>+880 123 456 789</Link>
+                    <Link className="hover:text-gray-200 trnsition" to='/'>123 Commerce Street, Dhaka, Bangladesh</Link>
                 </div>
             </footer>
         </section>
