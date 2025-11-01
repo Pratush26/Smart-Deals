@@ -40,3 +40,9 @@ input:-webkit-autofill {
   -webkit-text-fill-color: black;
   transition: background-color 5000s ease-in-out 0s;
 }
+th{
+    @apply border border-gray-300 bg-violet-950 text-white
+}
+td{
+    @apply border border-gray-300 bg-gray-300
+}

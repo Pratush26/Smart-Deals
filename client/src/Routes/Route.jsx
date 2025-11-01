@@ -36,7 +36,11 @@ export const router  = createBrowserRouter([{
         },
         {
             path: '/details/:id',
-            loader: ({params}) => axios(`${import.meta.env.VITE_BACKEND}productById/${params.id}`),
+            loader: async ({params}) => {
+                const ProductInfo = await axios(`${import.meta.env.VITE_BACKEND}productById/${params.id}`)
+                const ProductBidInfo = await axios(`${import.meta.env.VITE_BACKEND}bidsById/${params.id}`)
+                return {data: ProductInfo.data, bids: ProductBidInfo.data}
+            },
             Component: ProductDetailsPage
         },
         {

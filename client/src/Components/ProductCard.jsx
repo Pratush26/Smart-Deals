@@ -1,15 +1,10 @@
-import { useState } from "react";
 import { Link } from "react-router";
+import ImgManager from "./ImgManager";
 
 export default function ProductCard({ e }) {
-    const [imgError, setImgError] = useState(false);
     return (
         <div key={e._id} className='rounded-sm shadow-lg/50 shadow-gray-600 overflow-hidden'>
-            <img
-                src={imgError ? "https://upload.wikimedia.org/wikipedia/commons/d/d1/Image_not_available.png" : e.image}
-                alt={e.title}
-                onError={() => setImgError(true)}
-            />
+            <ImgManager imgUrl={e.image} altTxt={"Product Image"} />
             <p className='m-3 mb-0 font-bold'>{e.title}</p>
             <span className='flex items-center justify-between gap-2 m-4 mt-2 font-medium text-sm'>
                 <p>${e.price_max} - {e.price_min}</p>

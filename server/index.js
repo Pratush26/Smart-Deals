@@ -25,8 +25,7 @@ async function run() {
     const productsCollection = db.collection('products');
     const bidsCollection = db.collection('bids');
     app.get('/products', async (req, res) => {
-            const cursor = productsCollection.find({});
-            const result = await cursor.toArray();
+            const result = await productsCollection.find({}).toArray();
             res.send(result)
         });
     app.get('/productById/:id', async (req, res) => {
@@ -35,14 +34,18 @@ async function run() {
             const result = await productsCollection.findOne(query);
             res.send(result);
         });
+    app.get('/bidsById/:id', async (req, res) => {
+            const id = req.params.id;
+            const query = { product: new ObjectId(id) }
+            const result = await bidsCollection.find(query).toArray();
+            res.send(result);
+        });
     app.get('/latest-products', async (req, res) => {
-            const cursor = productsCollection.find({}).sort({created_at: 1}).limit(6);
-            const result = await cursor.toArray();
+            const result = await productsCollection.find({}).sort({created_at: 1}).limit(6).toArray();
             res.send(result)
         });
     app.get('/bids', async (req, res) => {
-            const cursor = bidsCollection.find({});
-            const result = await cursor.toArray();
+            const result = await bidsCollection.find({}).toArray();
             res.send(result)
         });
   } finally {
