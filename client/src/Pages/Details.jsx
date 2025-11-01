@@ -1,9 +1,13 @@
 import { Link, useLoaderData } from "react-router"
 import { FaArrowLeftLong } from "react-icons/fa6";
 import ImgManager from "../Components/ImgManager";
+import { useRef } from "react";
+import '../utils/utility.css'
 
 export default function ProductDetailsPage() {
     const { data, bids } = useLoaderData()
+    const modalRef = useRef(null)
+    const handleBuy = () => modalRef.current.showModal()
     console.log(bids)
     return (
         <main className="w-11/12 mx-auto">
@@ -43,7 +47,7 @@ export default function ProductDetailsPage() {
                         <p><span className="font-semibold">Contact : </span>{data.seller_contact}</p>
                         <p><span className="font-semibold">Status : </span>{data.status}</p>
                     </div>
-                    <button className="btn trnsition w-full">I want to buy this product</button>
+                    <button onClick={handleBuy} className="btn trnsition w-full">I want to buy this product</button>
                 </aside>
             </section>
             <section className="my-6">
@@ -77,6 +81,35 @@ export default function ProductDetailsPage() {
                     </tbody>
                 </table>
             </section>
+            {/* modal section */}
+            <dialog ref={modalRef} className="modal modal-bottom sm:modal-middle">
+                <div className="modal-box">
+                    <form
+                        // onSubmit={handleRegister}
+                        className="mt-5">
+                        <h3 className="font-bold text-lg text-center">Give Seller Your Offered Price</h3>
+                        <fieldset className='flex flex-col gap-1'>
+                            <label htmlFor="name">Name:</label>
+                            <input type="text" name="name" id="name" placeholder="Enter your name" />
+                            <label htmlFor="imgaeUrl">Imgae URL:</label>
+                            <input type="url" name="imgaeUrl" id="imgaeUrl" placeholder="Enter your imgae url" />
+                            <label htmlFor="email">Email:</label>
+                            <input type="email" required='true' name="email" id="email" placeholder="Enter your email" />
+                            <label htmlFor="bidingPrice">Place your Price:</label>
+                            <input type="number" required='true' name="bidingPrice" id="bidingPrice" placeholder="e.g. $ (Dollar)" />
+                            <label htmlFor="contactInfo">Contact Info:</label>
+                            <input type="tel" required='true' name="contactInfo" id="contactInfo" placeholder="Enter your contact info" />
+                            <button className='btn w-fit mx-auto my-3'>Submit Bid</button>
+                        </fieldset>
+                    </form>
+                    <div className="modal-action mt-0">
+                        <form method="dialog" className="mx-auto">
+                            <button className="px-4 py-2 text-sm font-semibold text-violet-700 border border-purple-700 hover:text-purple-950 hover:border-purple-950 rounded-sm trnsition cursor-pointer">Cancel</button>
+                        </form>
+                    </div>
+                </div>
+            </dialog>
+            {/* modal section */}
         </main>
     )
 }
