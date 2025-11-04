@@ -10,6 +10,7 @@ import MyProductsPage from "../Pages/MyProducts";
 import MyBidsPage from "../Pages/MyBids";
 import ProductDetailsPage from "../Pages/Details";
 
+const user = "office.supplies@email.com";
 export const router  = createBrowserRouter([{
     path: '/',
     Component: App,
@@ -26,12 +27,12 @@ export const router  = createBrowserRouter([{
         },
         {
             path: '/my-products',
-            loader: () => axios(`${import.meta.env.VITE_BACKEND}products`),
+            loader: () => axios(`${import.meta.env.VITE_BACKEND}productsByEmail/${user}`),
             Component: MyProductsPage
         },
         {
             path: '/my-bids',
-            loader: () => axios(`${import.meta.env.VITE_BACKEND}bids`),
+            loader: () => axios(`${import.meta.env.VITE_BACKEND}myBids/${user}`),
             Component: MyBidsPage
         },
         {

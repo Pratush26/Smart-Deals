@@ -52,24 +52,24 @@ export default function ProductDetailsPage() {
             </section>
             <section className="my-6">
                 <h2 className='text-4xl font-bold my-4'>Bids For This Products : <span className="text-violet-600">{bids.length}</span></h2>
-                <table className="table-auto text-center border-separate border border-gray-400 w-full">
+                <table className="table-auto text-center text-sm font-medium border-collapse border border-gray-400 w-full">
                     <thead>
-                        <tr>
+                        <tr className="bg-gray-200">
                             <th>SL no.</th>
                             <th>Buyer</th>
                             <th>Bid Price</th>
                             <th>Action</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody className="text-gray-800">
                         {
                             bids.map((e, i) => (
-                                <tr key={i}>
+                                <tr key={i} className="border border-gray-300 bg-white">
                                     <td>{i + 1}</td>
                                     <td className="flex flex-wrap justify-center items-center gap-2">
                                         <ImgManager imgUrl={e.buyer_image} altTxt={"buyer Image"} styles={"h-7 aspect-square rounded-full object-center object-contain"} />
                                         <div>
-                                            <p className="font-semibold">{e.buyer_name}</p>
+                                            <p className="font-semibold ">{e.buyer_name}</p>
                                             <p className="text-xs">{e.buyer_email}</p>
                                         </div>
                                     </td>
