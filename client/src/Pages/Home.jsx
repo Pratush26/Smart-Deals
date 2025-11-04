@@ -2,10 +2,13 @@ import { Link, NavLink, useLoaderData } from 'react-router'
 import { IoSearchOutline } from "react-icons/io5";
 import '../Utils/utility.css'
 import ProductCard from '../Components/ProductCard';
+import { useContext } from 'react';
+import { AuthContext } from '../Context/AuthContext';
 
 export default function Homepage() {
     const { data } = useLoaderData()
-    console.log(data)
+    const {user} = useContext(AuthContext)
+    console.log(user)
     return (
         <main>
             <section className='bg-linear-155 from-purple-200 to-green-100'>

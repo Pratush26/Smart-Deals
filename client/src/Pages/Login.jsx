@@ -8,22 +8,17 @@ import { AuthContext } from '../Context/AuthContext'
 export default function LoginPage() {
     const [msg, setMsg] = useState({})
     const [showPassword, setShowPassword] = useState(false)
-    const { user, createUser, updateUser, googleSignIn } = useContext(AuthContext)
+    const { user, sigInUser, googleSignIn } = useContext(AuthContext)
 
     if (user) return <Navigate to="/" ></Navigate>
     const handleRegister = (e) => {
         e.preventDefault();
-        createUser(e.target.email.value, e.target.password.value).then(() => {
-            updateUser(e.target.name.value, e.target.imgaeUrl.value).then(() => {
-                setMsg({ type: "success", message: "Successfully Registered User" })
-                e.target.reset()
-            }).catch((c) => {
-                setMsg({ type: "err", message: c.message })
-            })
+        sigInUser(e.target.email.value, e.target.password.value).then(() => {
+            setMsg({ type: "success", message: "Successfully Registered User" })
+            e.target.reset()
         }).catch((c) => {
             setMsg({ type: "err", message: c.message })
         })
-
     }
     const googleLogin = () => {
         googleSignIn().then(() => setMsg({ type: "success", message: "Successfully Signed in" })).catch((c) => {

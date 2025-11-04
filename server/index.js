@@ -2,8 +2,8 @@ import express from "express";
 import cors from 'cors'
 import dotenv from 'dotenv'
 import { MongoClient, ObjectId, ServerApiVersion } from "mongodb";
-import admin from 'firebase-admin'
-import serviceAccount from './smart-deals-firebase-adminsdk.json'
+// import admin from 'firebase-admin'
+// import serviceAccount from './smart-deals-firebase-adminsdk.json'
 
 dotenv.config()
 const app = express()
@@ -12,7 +12,7 @@ const uri = process.env.MONGODB_URL
 app.use(cors());
 app.use(express.json());
 
-admin.initializeApp({ credential: admin.credential.cert(serviceAccount) });
+// admin.initializeApp({ credential: admin.credential.cert(serviceAccount) });
 
 const client = new MongoClient(uri, {
     serverApi: {
@@ -30,6 +30,7 @@ async function run() {
         const bidsCollection = db.collection('bids');
 
         app.get('/products', async (req, res) => {
+            console.log(req.headers.authorization.split(' ')[1])
             const result = await productsCollection.find({}).toArray();
             res.send(result)
         });

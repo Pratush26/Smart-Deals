@@ -9,11 +9,14 @@ import CreateProductPage from "../Pages/CreateProductForm";
 import MyProductsPage from "../Pages/MyProducts";
 import MyBidsPage from "../Pages/MyBids";
 import ProductDetailsPage from "../Pages/Details";
+import notFoundPage from "../Pages/notFound";
+import ErrorPage from "../Pages/ErrorPage";
 
-const user = "office.supplies@email.com";
+const {user} = "useContext(AuthContext)";
 export const router  = createBrowserRouter([{
     path: '/',
     Component: App,
+    errorElement: <ErrorPage />,
     children: [
         {
             index: true,
@@ -22,7 +25,11 @@ export const router  = createBrowserRouter([{
         },
         {
             path: '/all-products',
-            loader: () => axios(`${import.meta.env.VITE_BACKEND}products`),
+            loader: () => axios.get(`${import.meta.env.VITE_BACKEND}products`,{
+                headers:{
+                    Authorization: `Barear ${localStorage.getItem("tkn")}`
+                }
+            }),
             Component: AllProductsPage
         },
         {
@@ -56,5 +63,9 @@ export const router  = createBrowserRouter([{
             path: '/create-product',
             Component: CreateProductPage
         },
+        {
+            path: '*',
+            Component: notFoundPage
+        }
     ]
 }])

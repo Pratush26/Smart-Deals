@@ -14,7 +14,10 @@ export default function AuthProvider({ children }) {
     const signOutUser = () => signOut(auth)
     useEffect(() => {
         onAuthStateChanged(auth, (u) => {
-            if (u) setUser(u)
+            if (u) {
+                localStorage.setItem("tkn", u.accessToken)
+                setUser(u)
+            }
             else setUser(null)
             setLoading(false);
         })
