@@ -30,8 +30,8 @@ export default function LoginPage() {
             onSubmit={handleRegister}
             className="bg-white w-1/2 mx-auto p-4 m-8 shadow-lg/50 shadow-gray-400">
             <h1 className="flex items-center justify-center text-center text-2xl font-bold my-4" >Login</h1>
-            {msg && <p className={`${msg.type === 'err' ? 'text-red-600' : 'text-green-600'}`}>{msg.message}</p>}
-            <fieldset className='flex flex-col gap-1'>
+            {msg && <p className={`${msg.type === 'err' ? 'text-red-600' : 'text-green-600'} w-11/12 mx-auto`}>{msg.message}</p>}
+            <fieldset className='flex flex-col gap-1 w-11/12 mx-auto'>
                 <label htmlFor="email">Email:</label>
                 <input type="email" required='true' name="email" id="email" placeholder="Enter your email" />
                 <label htmlFor="password">Password:</label>
