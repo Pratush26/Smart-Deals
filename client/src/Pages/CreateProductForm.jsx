@@ -1,5 +1,5 @@
 import { Link, Navigate, useLoaderData } from 'react-router'
-import '../utils/utility.css'
+import '../Utils/utility.css'
 import { useContext, useState } from 'react'
 import { FcGoogle } from 'react-icons/fc'
 import { AuthContext } from '../Context/AuthContext'

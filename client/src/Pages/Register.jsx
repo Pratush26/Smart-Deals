@@ -1,5 +1,5 @@
 import { Link, Navigate } from 'react-router'
-import '../utils/utility.css'
+import '../Utils/utility.css'
 import { useContext, useState } from 'react'
 import { FaEye, FaEyeSlash, FaGithub } from 'react-icons/fa'
 import { FcGoogle } from 'react-icons/fc'

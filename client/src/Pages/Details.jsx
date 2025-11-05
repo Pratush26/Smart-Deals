@@ -2,7 +2,7 @@ import { Link, useLoaderData } from "react-router"
 import { FaArrowLeftLong } from "react-icons/fa6";
 import ImgManager from "../Components/ImgManager";
 import { useContext, useRef } from "react";
-import '../utils/utility.css'
+import '../Utils/utility.css'
 import useAxios from "../Hooks/useAxios";
 import { AuthContext } from "../Context/AuthContext";
 
