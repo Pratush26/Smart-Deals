@@ -1,14 +1,33 @@
 import { Link, useLoaderData } from "react-router"
 import { FaArrowLeftLong } from "react-icons/fa6";
 import ImgManager from "../Components/ImgManager";
-import { useRef } from "react";
+import { useContext, useRef } from "react";
 import '../utils/utility.css'
+import useAxios from "../Hooks/useAxios";
+import { AuthContext } from "../Context/AuthContext";
 
 export default function ProductDetailsPage() {
     const { data, bids } = useLoaderData()
+    const { user } = useContext(AuthContext)
     const modalRef = useRef(null)
+    const axis = useAxios()
     const handleBuy = () => modalRef.current.showModal()
-    console.log(bids)
+    const handleBid = (e) => {
+        e.preventDefault();
+        const obj = {
+            product: data._id,
+            buyer_image: user.photoURL,
+            buyer_name: user.displayName,
+            buyer_contact: e.target.contactInfo.value,
+            buyer_email: user.email,
+            bid_price: e.target.bidingPrice.value,
+            status: "pending",
+        }
+        axis.post('/createBid', obj).then(res => {
+            e.target.reset()
+            if(res.data.insertedId) console.log("successfull")
+        }).catch(err => console.error(err))
+    }
     return (
         <main className="w-11/12 mx-auto">
             <section className="grid grid-cols-2 place-content-center my-8 gap-6">
@@ -85,16 +104,10 @@ export default function ProductDetailsPage() {
             <dialog ref={modalRef} className="modal modal-bottom sm:modal-middle">
                 <div className="modal-box">
                     <form
-                        // onSubmit={handleRegister}
+                        onSubmit={handleBid}
                         className="mt-5">
                         <h3 className="font-bold text-lg text-center">Give Seller Your Offered Price</h3>
                         <fieldset className='flex flex-col gap-1'>
-                            <label htmlFor="name">Name:</label>
-                            <input type="text" name="name" id="name" placeholder="Enter your name" />
-                            <label htmlFor="imgaeUrl">Imgae URL:</label>
-                            <input type="url" name="imgaeUrl" id="imgaeUrl" placeholder="Enter your imgae url" />
-                            <label htmlFor="email">Email:</label>
-                            <input type="email" required='true' name="email" id="email" placeholder="Enter your email" />
                             <label htmlFor="bidingPrice">Place your Price:</label>
                             <input type="number" required='true' name="bidingPrice" id="bidingPrice" placeholder="e.g. $ (Dollar)" />
                             <label htmlFor="contactInfo">Contact Info:</label>

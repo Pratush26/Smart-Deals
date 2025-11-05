@@ -2,15 +2,11 @@ import { Link, NavLink, useLoaderData } from 'react-router'
 import { IoSearchOutline } from "react-icons/io5";
 import '../Utils/utility.css'
 import ProductCard from '../Components/ProductCard';
-import { useContext } from 'react';
-import { AuthContext } from '../Context/AuthContext';
 
 export default function Homepage() {
     const { data } = useLoaderData()
-    const {user} = useContext(AuthContext)
-    console.log(user)
     return (
-        <main>
+        <main className='w-full'>
             <section className='bg-linear-155 from-purple-200 to-green-100'>
                 <div id="hero" className='min-h-[90vh] flex flex-col items-center p-20 justify-center text-center gap-6'>
                     <h1 className='text-5xl font-bold'>Deal your <span className="text-violet-600">Products</span> <br />
@@ -32,7 +28,12 @@ export default function Homepage() {
             </section>
             <h2 className='text-4xl font-bold text-center mt-12 mb-8'>Recent <span className="text-violet-600">Products</span></h2>
             <section className='grid grid-cols-3 place-content-center gap-8 w-11/12 mx-auto'>
-                {data.map(e => <ProductCard e={e} />)}
+                {
+                    data?.length > 0 ?
+                        data.map(e => <ProductCard key={e._id} e={e} />)
+                        :
+                        <p>No Product available!</p>
+                }
             </section>
             <Link to='/all-products' className='btn trnsition flex w-fit mx-auto my-6'>
                 Show All

@@ -7,7 +7,7 @@ export default function ProductCard({ e }) {
             <ImgManager imgUrl={e.image} altTxt={"Product Image"} />
             <p className='m-3 mb-0 font-bold'>{e.title}</p>
             <span className='flex items-center justify-between gap-2 m-4 mt-2 font-medium text-sm'>
-                <p>${e.price_max} - {e.price_min}</p>
+                <p>${e.price_min} - {e.price_max}</p>
                 <Link to={`/details/${e._id}`} className='px-3 py-1 text-sm font-semibold cursor-pointer text-violet-700 border border-purple-700 hover:text-purple-950 hover:border-purple-950 rounded-sm trnsition'>
                     View Details
                 </Link>

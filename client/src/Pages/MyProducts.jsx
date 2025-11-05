@@ -1,8 +1,15 @@
-import { useLoaderData } from "react-router"
 import ImgManager from "../Components/ImgManager"
+import { useContext, useEffect, useState } from "react"
+import useAxios from "../Hooks/useAxios"
+import { AuthContext } from "../Context/AuthContext"
 
 export default function MyProductsPage() {
-    const { data } = useLoaderData()
+    const axis = useAxios()
+    const {user} = useContext(AuthContext)
+    const [data, setData] = useState([])
+    useEffect(() => {
+        axis(`/productsByEmail/${user?.email}`).then(res => setData(res.data)).catch(err => console.error(err))
+    }, [axis, user])
     return (
         <main className="w-11/12 mx-auto my-6">
             {
