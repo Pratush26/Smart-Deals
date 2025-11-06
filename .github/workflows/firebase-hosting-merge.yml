@@ -10,17 +10,8 @@ jobs:
   build_and_deploy:
     runs-on: ubuntu-latest
     steps:
-      # Checkout repo
       - uses: actions/checkout@v4
-
-      # Install and build frontend inside client
-      - name: Install and Build Client
-        run: |
-          cd client
-          npm install
-          npm run build
-
-      # Deploy to Firebase Hosting
+      - run: npm ci && npm run build
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: ${{ secrets.GITHUB_TOKEN }}
