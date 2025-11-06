@@ -73,7 +73,11 @@ app.get("/products", async (req, res) => {
   const result = await db.collection("products").find({}).toArray();
   res.send(result);
 });
-
+app.get('/latest-products', async (req, res) => {
+    const db = await connectDB();
+    const result = await db.collection("products").find({}).sort({ created_at: 1 }).limit(6).toArray();
+    res.send(result)
+});
 app.get("/categories", async (req, res) => {
   const db = await connectDB();
   const result = await db.collection("category").find({}).toArray();

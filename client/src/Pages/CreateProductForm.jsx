@@ -39,7 +39,7 @@ export default function CreateProductPage() {
         <form
             onSubmit={handleCreate}
             className="bg-white w-1/2 mx-auto p-4 m-8 shadow-lg/50 shadow-gray-400">
-            <h1 className='text-3xl font-bold text-center my-8'>Create <span className="text-violet-600">new Products</span></h1>
+            <h1 className='text-3xl font-bold text-center my-8'>Create <span className="text-violet-600">new Products!</span></h1>
             {msg && <p className={`${msg.type === 'err' ? 'text-red-600' : 'text-green-600'} w-11/12 mx-auto my-2`}>{msg.message}</p>}
             <fieldset className='w-11/12 mx-auto space-y-3'>
                 <div>
