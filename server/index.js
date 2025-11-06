@@ -74,9 +74,9 @@ app.get("/products", async (req, res) => {
   res.send(result);
 });
 app.get('/latest-products', async (req, res) => {
-    const db = await connectDB();
-    const result = await db.collection("products").find({}).sort({ created_at: 1 }).limit(6).toArray();
-    res.send(result)
+  const db = await connectDB();
+  const result = await db.collection("products").find({}).sort({ created_at: 1 }).limit(6).toArray();
+  res.send(result)
 });
 app.get("/categories", async (req, res) => {
   const db = await connectDB();
@@ -87,34 +87,28 @@ app.get("/categories", async (req, res) => {
 app.get("/productById/:id", async (req, res) => {
   const db = await connectDB();
   const result = await db.collection("products").findOne({
-    _id: new ObjectId(req.params.id),
+    _id: new ObjectId(req.params.id)
   });
+  res.send(result);
+});
+app.get('/bidsById/:id', async (req, res) => {
+  const db = await connectDB();
+  const query = { product: new ObjectId(req.params.id) }
+  const result = await db.collection("bids").find(query).toArray();
   res.send(result);
 });
 
 app.get("/productsByEmail/:email", verifyToken, async (req, res) => {
   const db = await connectDB();
-  const result = await db
-    .collection("products")
-    .find({ email: req.params.email })
-    .toArray();
+  const result = await db.collection("products").find({ email: req.params.email }).toArray();
   res.send(result);
 });
 
 app.get("/myBids/:email", async (req, res) => {
   const db = await connectDB();
-  const bids = await db
-    .collection("bids")
-    .find({ buyer_email: req.params.email })
-    .toArray();
-
+  const bids = await db.collection("bids").find({ buyer_email: req.params.email }).toArray();
   const productIds = bids.map((b) => b.product);
-
-  const products = await db
-    .collection("products")
-    .find({ _id: { $in: productIds } })
-    .toArray();
-
+  const products = await db.collection("products").find({ _id: { $in: productIds } }).toArray();
   res.send({ bids, products });
 });
 
