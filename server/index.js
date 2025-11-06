@@ -47,72 +47,75 @@ const client = new MongoClient(uri, {
         deprecationErrors: true,
     }
 });
-
-async function run() {
+let conn;
+async function connectDB() {
+    if (conn) return conn;
     try {
-        await client.connect();
-        const db = client.db('smart_db');
-        const productsCollection = db.collection('products');
-        const bidsCollection = db.collection('bids');
-        const categoryCollection = db.collection('category');
-
-        app.get('/products', async (req, res) => {
-            const result = await productsCollection.find({}).toArray();
-            res.send(result)
-        });
-        app.get('/categories', async (req, res) => {
-            const result = await categoryCollection.find({}).toArray();
-            res.send(result)
-        });
-        app.get('/latest-products', async (req, res) => {
-            const result = await productsCollection.find({}).sort({ created_at: 1 }).limit(6).toArray();
-            res.send(result)
-        });
-        app.get('/productById/:id', async (req, res) => {
-            const query = { _id: new ObjectId(req.params.id) }
-            const result = await productsCollection.findOne(query);
-            res.send(result);
-        });
-        app.get('/productsByEmail/:email', verifyToken, async (req, res) => {
-            const result = await productsCollection.find({ email: req.params.email }).toArray();
-            res.send(result);
-        });
-        app.get('/bidsById/:id', async (req, res) => {
-            const query = { product: new ObjectId(req.params.id) }
-            const result = await bidsCollection.find(query).toArray();
-            res.send(result);
-        });
-        app.get('/myBids/:email', async (req, res) => {
-            const bids = await bidsCollection.find({ buyer_email: req.params.email }).toArray();
-            const productArr = bids.map(e => e.product)
-            const products = await productsCollection.find({ _id: { $in: productArr } }).toArray();
-            res.send({ bids, products })
-        });
-        app.post('/createBid', async (req, res) => {
-            try {
-                req.body.product = new ObjectId(String(req.body.product));
-                const result = await bidsCollection.insertOne(req.body);
-                res.send(result);
-            } catch (error) {
-                console.error('Error creating bid:', error);
-                res.status(500).send({ error: 'Failed to create bid' });
-            }
-        });
-        app.post('/createProduct', async (req, res) => {
-            try {
-                const exist = await categoryCollection.findOne({name: req.body.category});
-                if(!exist) await categoryCollection.insertOne({name: req.body.category});
-                const result = await productsCollection.insertOne(req.body);
-                res.send(result);
-            } catch (error) {
-                console.error('Error creating bid:', error);
-                res.status(500).send({ error: 'Failed to create bid' });
-            }
-        });
-    } finally {
+        conn = await client.connect();
+        return conn;
+    } catch (error) {
+        console.error("MongoDB connection error:", error);
     }
 }
-run().catch(console.dir);
+connectDB();
+const db = client.db('smart_db');
+const productsCollection = db.collection('products');
+const bidsCollection = db.collection('bids');
+const categoryCollection = db.collection('category');
+
+app.get('/products', async (req, res) => {
+    const result = await productsCollection.find({}).toArray();
+    res.send(result)
+});
+app.get('/categories', async (req, res) => {
+    const result = await categoryCollection.find({}).toArray();
+    res.send(result)
+});
+app.get('/latest-products', async (req, res) => {
+    const result = await productsCollection.find({}).sort({ created_at: 1 }).limit(6).toArray();
+    res.send(result)
+});
+app.get('/productById/:id', async (req, res) => {
+    const query = { _id: new ObjectId(req.params.id) }
+    const result = await productsCollection.findOne(query);
+    res.send(result);
+});
+app.get('/productsByEmail/:email', verifyToken, async (req, res) => {
+    const result = await productsCollection.find({ email: req.params.email }).toArray();
+    res.send(result);
+});
+app.get('/bidsById/:id', async (req, res) => {
+    const query = { product: new ObjectId(req.params.id) }
+    const result = await bidsCollection.find(query).toArray();
+    res.send(result);
+});
+app.get('/myBids/:email', async (req, res) => {
+    const bids = await bidsCollection.find({ buyer_email: req.params.email }).toArray();
+    const productArr = bids.map(e => e.product)
+    const products = await productsCollection.find({ _id: { $in: productArr } }).toArray();
+    res.send({ bids, products })
+});
+app.post('/createBid', async (req, res) => {
+    try {
+        req.body.product = new ObjectId(String(req.body.product));
+        const result = await bidsCollection.insertOne(req.body);
+        res.send(result);
+    } catch (error) {
+        console.error('Error creating bid:', error);
+        res.status(500).send({ error: 'Failed to create bid' });
+    }
+});
+app.post('/createProduct', async (req, res) => {
+    try {
+        const exist = await categoryCollection.findOne({ name: req.body.category });
+        if (!exist) await categoryCollection.insertOne({ name: req.body.category });
+        const result = await productsCollection.insertOne(req.body);
+        res.send(result);
+    } catch (error) {
+        console.error('Error creating bid:', error);
+        res.status(500).send({ error: 'Failed to create bid' });
+    }
+});
 
 
 app.get("/", (req, res) => res.send("Hello sadddam"))
